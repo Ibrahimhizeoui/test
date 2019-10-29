@@ -1,0 +1,29 @@
+version: 0.2
+
+run-as: Linux-user-name
+
+env:
+  parameter-store:
+    key: "value"
+    key: "value"
+  git-credential-helper: yes
+
+proxy:
+    upload-artifacts: yes
+    logs: yes
+            
+phases:
+  install:
+    run-as: Linux-user-name
+    commands:
+      - docker-compose build
+      - docker-compose down
+  build:
+    run-as: Linux-user-name
+    commands:
+      -  docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
+  post_build:
+    run-as: Linux-user-name
+    commands:
+      - docker-compose run --rm --no-deps sae-application -c './scripts/run-init-environment.sh && serverless package'
+      - docker-compose down
