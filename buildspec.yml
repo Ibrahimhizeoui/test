@@ -2,6 +2,13 @@ version: 0.2
 
 run-as: Linux-user-name
 
+env:
+  git-credential-helper: yes
+
+proxy:
+    upload-artifacts: yes
+    logs: yes
+            
 phases:
   install:
     runtime-versions:
@@ -9,6 +16,7 @@ phases:
   build:
     run-as: Linux-user-name
     commands:
+      - cd deployments/platformdeployment/Docker
       - docker-compose build
       - docker-compose down
       - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
