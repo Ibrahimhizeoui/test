@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  awscodesuite-application:
+    image: ib92/awscodesuite:1.0
+    entrypoint: sh
+    ports:
+      - 3000:3000
+    #volumes:
+    command: -c 'sh scripts/run-dev-server.sh'
