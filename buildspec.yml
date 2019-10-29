@@ -5,10 +5,12 @@ phases:
       docker: 18
   build:
     commands:
+      - BUILD_START_TIMESTAMP=date +%s
       - docker-compose build
   post_build:
     commands:
       - docker-compose run --rm awscodesuite-application -c ./scripts/run-all-tests.sh
       - docker-compose run --rm --no-deps awscodesuite-application -c 'serverless package'
-      - aws cloudwatch put-metric-data --namespace KPM --metric-name PR_package_size --unit Bytes --value stat --printf='%s' .serverless/awscodesuite.zip
+      - size=$(stat --printf='%s' .serverless/awscodesuite.zip)
+      - aws cloudwatch put-metric-data --namespace KPM --metric-name PR_package_size --unit Bytes --value $(size)
       - docker-compose down
