@@ -1,17 +1,13 @@
 version: 0.2           
 phases:
-  install:
-    runtime-versions:
-      docker: 18
   build:
-    run-as: Linux-user-name
+    #run-as: Linux-user-name
     commands:
-      - cd deployments/platformdeployment/Docker
       - docker-compose build
       - docker-compose down
       - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
   post_build:
-    run-as: Linux-user-name
+    #run-as: Linux-user-name
     commands:
       - docker-compose run --rm --no-deps sae-application -c './scripts/run-init-environment.sh && serverless package'
       - docker-compose down
