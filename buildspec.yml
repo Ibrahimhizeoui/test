@@ -11,16 +11,14 @@ proxy:
             
 phases:
   install:
-    run-as: Linux-user-name
+    runtime-versions:
+      docker: 18
+  build:
     commands:
       - docker-compose build
       - docker-compose down
-  build:
-    run-as: Linux-user-name
-    commands:
-      -  docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
+      - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
   post_build:
-    run-as: Linux-user-name
     commands:
       - docker-compose run --rm --no-deps sae-application -c './scripts/run-init-environment.sh && serverless package'
       - docker-compose down
