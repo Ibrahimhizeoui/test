@@ -10,12 +10,10 @@ proxy:
     logs: yes
             
 phases:
-  install:
-    runtime-versions:
-      docker: 18
   build:
     run-as: Linux-user-name
     commands:
+      - cd deployments/platformdeployment/Docker
       - docker-compose build
       - docker-compose down
       - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
