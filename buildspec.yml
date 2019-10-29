@@ -6,6 +6,7 @@ phases:
   build:
     #run-as: Linux-user-name
     commands:
+      - echo "foo bar"
       - docker-compose build
   #     - docker-compose down
   #     - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
