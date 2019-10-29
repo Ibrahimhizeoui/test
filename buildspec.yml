@@ -5,7 +5,7 @@ phases:
       docker: 18
   build:
     commands:
-      - docker-compose pull
+      - docker-compose build
   post_build:
     commands:
       - docker-compose run --rm awscodesuite-application -c ./scripts/run-all-tests.sh

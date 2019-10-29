@@ -1,1 +1,1 @@
-echo "foo bar"
+echo "run all tests"

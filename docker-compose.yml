@@ -2,10 +2,19 @@ version: '3'
 
 services:
   awscodesuite-application:
-    image: ib92/awscodesuite:1.0
+    image: ib92/awscodesuite
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     entrypoint: sh
     ports:
-      - 3000:3000
+      - 4000:4000
     volumes:
       - ./scripts:/awscodesuite/scripts
+      - ./serverless.yml:/awscodesuite/serverless.yml
+      - ./.serverless:/awscodesuite/.serverless
+      - ./buildspec.yml:/awscodesuite/.buildspec.yml
+      - ./handler.js:/awscodesuite/handler.js
+      - ./package.json:/awscodesuite/package.json
+      - ./yarn.lock:/awscodesuite/yarn.lock
     command: -c 'sh scripts/run-dev-server.sh'
