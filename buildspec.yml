@@ -7,8 +7,8 @@ phases:
     #run-as: Linux-user-name
     commands:
       - echo "foo bar"
-      - docker image build -t ib92/awscodesuite .
-  #     - docker-compose build
+      #- docker image build -t ib92/awscodesuite .
+      - docker-compose build
   #     - docker-compose down
   #     - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
   # post_build:
