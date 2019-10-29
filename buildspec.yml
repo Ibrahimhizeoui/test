@@ -6,6 +6,7 @@ phases:
     runtime-versions:
       docker: 18
   pre_build:
+    run-as: Linux-user-name
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region eu-north-1)
