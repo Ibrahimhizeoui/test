@@ -6,5 +6,6 @@ services:
     entrypoint: sh
     ports:
       - 3000:3000
-    #volumes:
+    volumes:
+      - /scripts:/awscodesuite/scripts
     command: -c 'sh scripts/run-dev-server.sh'
