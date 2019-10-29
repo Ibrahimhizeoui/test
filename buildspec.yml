@@ -6,11 +6,16 @@ phases:
   build:
     commands:
       - docker-compose build
+      - BUILD_START_TIMESTAMP=$(date +%s)
   post_build:
     commands:
       - docker-compose run --rm awscodesuite-application -c ./scripts/run-all-tests.sh
       - docker-compose run --rm --no-deps awscodesuite-application -c 'serverless package'
       - size=$(stat --printf='%s' .serverless/awscodesuite.zip)
-      - echo $size
-      #- aws cloudwatch put-metric-data --namespace KPM --metric-name PR_package_size --unit Bytes --value $size
+      - aws cloudwatch put-metric-data --namespace KPM --metric-name PR_package_size --unit Bytes --value $size
       - docker-compose down
+    finally:
+      - aws cloudwatch put-metric-data --namespace KPM --metric-name PR_frequency --unit Count --value 1
+      - duration=$(expr $(date +%s) - ${BUILD_START_TIMESTAMP})
+      - aws cloudwatch put-metric-data --namespace KPM --metric-name PR_duration --unit Seconds --value $duration
+      
