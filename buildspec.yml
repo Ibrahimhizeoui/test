@@ -1,14 +1,4 @@
-version: 0.2
-
-run-as: Linux-user-name
-
-env:
-  git-credential-helper: yes
-
-proxy:
-    upload-artifacts: yes
-    logs: yes
-            
+version: 0.2           
 phases:
   install:
     runtime-versions:
