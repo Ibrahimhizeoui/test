@@ -1,16 +1,19 @@
 version: 0.2
 
 run-as: Linux-user-name
+
 phases:
   install:
-    run-as: Linux-user-name
     runtime-versions:
       docker: 18
-  pre_build:
-    run-as: Linux-user-name
-    commands:
-      - $(aws ecr get-login --no-include-email --region eu-north-1)
   build:
     run-as: Linux-user-name
     commands:
-      - docker build -t ib92/awscodesuite:1.0 .
+      - docker-compose build
+      - docker-compose down
+      - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
+  post_build:
+    run-as: Linux-user-name
+    commands:
+      - docker-compose run --rm --no-deps sae-application -c './scripts/run-init-environment.sh && serverless package'
+      - docker-compose down
