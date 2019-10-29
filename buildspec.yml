@@ -5,9 +5,7 @@ phases:
       docker: 18
   build:
     commands:
-      - echo "foo bar"
-      - docker-compose build
-      - docker-compose down
+      - docker-compose pull
   post_build:
     commands:
       - docker-compose run --rm awscodesuite-application -c ./scripts/run-all-tests.sh

@@ -7,5 +7,5 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /scripts:/awscodesuite/scripts
+      - ./scripts:/awscodesuite/scripts
     command: -c 'sh scripts/run-dev-server.sh'
