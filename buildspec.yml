@@ -10,7 +10,7 @@ phases:
       #- docker image build -t ib92/awscodesuite .
       - docker-compose build
       - docker-compose down
-      - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
+      - docker-compose run --rm awscodesuite-application -c ./scripts/run-all-tests.sh
   # post_build:
   #   #run-as: Linux-user-name
   #   commands:
