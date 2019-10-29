@@ -15,10 +15,10 @@ phases:
       docker: 18
   build:
     commands:
-      - docker-compose build
-      - docker-compose down
-      - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
-  post_build:
-    commands:
-      - docker-compose run --rm --no-deps sae-application -c './scripts/run-init-environment.sh && serverless package'
-      - docker-compose down
+      - docker build -t ib92/awscodesuite:1.0
+  #     - docker-compose down
+  #     - docker-compose run --rm sae-application -c ./scripts/run-all-tests.sh
+  # post_build:
+  #   commands:
+  #     - docker-compose run --rm --no-deps sae-application -c './scripts/run-init-environment.sh && serverless package'
+  #     - docker-compose down
